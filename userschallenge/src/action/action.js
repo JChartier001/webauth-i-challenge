@@ -10,7 +10,7 @@ export const USER_REGISTER_FAILURE = "USER_REGISTER_FAILURE";
 export function userLogin(user){
     return dispatch => {
         dispatch({type: USER_LOGIN_START});
-        axios.post('http://localhost:5000/api/auth/login', {
+        axios.post('https://localhost:3300/api/auth/login', {
             username: user.username,
             password: user.password
         })
@@ -28,7 +28,7 @@ export function userLogin(user){
 export function userRegister(user){
     return dispatch => {
         dispatch({type: USER_REGISTER_START});
-        axios.post('https://localhost:5000/api/auth/register', user)
+        axios.post('https://localhost:3300/api/auth/register', user)
         .then(response => {
             console.log(response);
             dispatch({type: USER_REGISTER_SUCCESS, payload: response})

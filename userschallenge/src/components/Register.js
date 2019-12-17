@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 
 import {useSelector, useDispatch} from "react-redux";
-import {userRegister} from "../action/action"
+import {userLogin} from "../action/action"
 
 
 
@@ -15,13 +15,13 @@ function Register () {
     console.log("userdata", userData);
     
     const handleInputChange = e => {
-        ...user,
-        setUserData({[e.target.name]: e.target.value})
+     
+        setUserData({...userData, [e.target.name]: e.target.value})
     };
 
     const handleSubmit = e => {
         e.preventDefault();
-        dispatch(userRegister({
+        dispatch(userLogin({
             username: userData.username,
             password: userData.password
         }))
