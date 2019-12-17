@@ -1,45 +1,39 @@
 import React, {useState} from 'react';
-import axios from "axios";
+
+import {useSelector, useDispatch} from "react-redux";
+import {userRegister} from "../action/action"
 
 
 
-const Register = () =>{
-    const [user, setUser] = useState({
+function Register () {
+    const user = useSelector(state => state.user);
+    const [userData, setUserData] =useState([{
         username: "",
         password: ""
-    });
+    }]);
+    const dispatch = useDispatch();
+    console.log("userdata", userData);
     
-    console.log(user);
+    const handleInputChange = e => {
+        ...user,
+        setUserData({[e.target.name]: e.target.value})
+    };
 
-    const handleInput = e =>{
-        setUser({ ...user,
-            [e.target.name]: e.target.value
-        })
-    }
-
-    const handleSubmit = (user, e) => {
+    const handleSubmit = e => {
         e.preventDefault();
-
-        axios
-        .post('http://localhost:5000/api/auth/register', {
-            user
-        })
-        .then(response => {
-            console.log(response);
-
-        })
-        .catch(error => {
-            console.log(error)
-        })
+        dispatch(userRegister({
+            username: userData.username,
+            password: userData.password
+        }))
     }
 
     return(
        <div>
            <div>
-               <form onSubmit={() => {handleSubmit(user)}}>
-               <input text="type" name="username" onInput={handleInput}/>
-               <input text="password" name="password" onInput={handleInput}/>
-               <button type="submit" >Submit</button>
+               <form onSubmit={handleSubmit}>
+               <input text="type" name="username" onChange={handleInputChange} placeholder="Name" value={userData.username}/>
+               <input text="password" name="password" onChange={handleInputChange}  placeholder="Password" value={userData.password} />
+               <button>Submit</button>
                </form>
            </div>
        </div>
