@@ -29,7 +29,7 @@ const sessionConfiguration = {
     cookie: {
         maxAge: 1000*60*10,
         secure: false,
-        httpOnly: true
+        httpOnly: false
     },
 };
 
@@ -38,7 +38,7 @@ server.use(helmet());
 server.use(express.json());
 server.use(cors({
     credentials: true,
-    origin: 'http://127.0.0.1:3000'
+    origin: 'http://localhost:3000'
 }));
 server.use(sessions(sessionConfiguration));
 
